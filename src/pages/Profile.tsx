@@ -73,7 +73,7 @@ export const Profile = () => {
                     title={user?.username}
                 />
                 <CardHeader
-                    title="User information"
+                    title="User information:"
                 />
                 <CardContent className={classes.content}>
                     <Typography className={classes.text}>Name:{user?.name}</Typography>
