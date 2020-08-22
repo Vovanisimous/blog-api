@@ -1,6 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {AppBar, Button, Toolbar, Typography} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -8,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        textDecoration: "none",
+        color: "white",
+        fontSize: "40px",
     },
 }));
 
@@ -17,10 +21,9 @@ export const Header = () => {
     return (
             <AppBar position="fixed">
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        News
-                    </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Link to={`/`} className={classes.title}>
+                        Site
+                    </Link>
                 </Toolbar>
             </AppBar>
     )

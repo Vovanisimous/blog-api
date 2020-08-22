@@ -39,7 +39,7 @@ export const Album = () => {
     return (
         <div className={classes.container}>
             {photos?.map((photo:IPhoto) => (
-                <Link to={photo.url} key={photo.id} className={classes.photoContainer}>
+                <Link to={`/albums/${photo.albumId}/${photo.id}`} key={photo.id} className={classes.photoContainer}>
                     <img src={photo.thumbnailUrl} />
                     <Typography>{photo.title}</Typography>
                 </Link>

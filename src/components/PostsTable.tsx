@@ -30,10 +30,10 @@ export const PostsTable = (props: IProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {posts?.map((row) => (
-                        <TableRow key={row.id}>
+                    {posts?.map((post) => (
+                        <TableRow key={post.id}>
                             <TableCell align="center" className={classes.postName}>
-                                <Link to={`/posts/${row.id}`}>{row.title}</Link>
+                                <Link to={`/posts/${post.id}`}>{post.title}</Link>
                             </TableCell>
                         </TableRow>
                     ))}

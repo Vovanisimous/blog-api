@@ -30,10 +30,10 @@ export const AlbumsTable = (props: IProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {albums?.map((row) => (
-                        <TableRow key={row.id}>
+                    {albums?.map((album) => (
+                        <TableRow key={album.id}>
                             <TableCell align="center" className={classes.postName}>
-                                <Link to={`/albums/${row.id}`}>{row.title}</Link>
+                                <Link to={`/albums/${album.id}`}>{album.title}</Link>
                             </TableCell>
                         </TableRow>
                     ))}
