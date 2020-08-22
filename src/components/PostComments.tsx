@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {IComment} from "../entity/posts";
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, Typography} from "@material-ui/core";
@@ -6,7 +6,8 @@ import {SeparateComment} from "./SeparateComment";
 import {IUser} from "../entity/user";
 
 interface IProps {
-    comments: IComment[] | undefined;
+    comments?: IComment[];
+    users?: IUser[];
 }
 
 const styles = makeStyles(() => ({
@@ -17,15 +18,17 @@ const styles = makeStyles(() => ({
     },
 }));
 
-export const PostComments = (comments: IProps) => {
+export const PostComments = (props: IProps) => {
     const classes = styles();
+    const comments = props.comments;
+    const users = props.users;
 
     return (
         <Card className={classes.card} variant={"outlined"}>
             <Typography variant={"h4"}>Comments:</Typography>
             <div>
-                {comments.comments?.map((item: IComment) => {
-                    return <SeparateComment key={item.id} comment={item}/>
+                {comments?.map((item: IComment) => {
+                    return <SeparateComment key={item.id} comment={item} users={users}/>
                 })}
             </div>
         </Card>

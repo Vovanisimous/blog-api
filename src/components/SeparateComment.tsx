@@ -2,9 +2,13 @@ import React, {useEffect, useState} from "react";
 import {IComment, IPost} from "../entity/posts";
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, CardContent, CardHeader, Typography} from "@material-ui/core";
+import {IUser} from "../entity/user";
+import {Link} from "react-router-dom";
 
 interface IProps {
     comment?: IComment;
+
+    users?: IUser[];
 }
 
 const styles = makeStyles(() => ({
@@ -26,18 +30,28 @@ const styles = makeStyles(() => ({
     }
 }));
 
-export const SeparateComment = (comment: IProps) => {
+export const SeparateComment = (props: IProps) => {
     const classes = styles();
-    const comment1 = comment.comment;
+    const comment = props.comment;
+    const users = props.users;
+    const [user, setUser] = useState()
+
+    useEffect(() => {
+         setUser(users?.filter((user) => user.email === comment?.email));
+    }, [])
+
+    useEffect(() => console.log(user), [user])
 
     return (
-        <Card className={classes.card} variant={"outlined"}>
-            <CardHeader
-                title={comment1?.name}
-            />
-            <CardContent className={classes.content}>
-                <Typography className={classes.text}>{comment1?.body}</Typography>
-            </CardContent>
-        </Card>
+        <Link to={`/users/${user?.id}`}>
+            <Card className={classes.card} variant={"outlined"}>
+                <CardHeader
+                    title={comment?.name}
+                />
+                <CardContent className={classes.content}>
+                    <Typography className={classes.text}>{comment?.body}</Typography>
+                </CardContent>
+            </Card>
+        </Link>
     )
 }

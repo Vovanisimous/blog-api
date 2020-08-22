@@ -40,12 +40,16 @@ export const Post = () => {
     const classes = styles();
     const { postId } = useParams();
     const [post, setPost] = useState<IPost>();
-    const [user, setUser] = useState<IUser>()
+    const [user, setUser] = useState<IUser>();
+    const [users, setUsers] = useState<IUser[]>();
     const [comments, setComments] = useState<IComment[]>()
 
     useEffect(() => {
         transport.get(`posts/${postId}`).then((postResponse: any) => {
             setPost(postResponse);
+        });
+        transport.get(`users`).then((usersResponse: any) => {
+            setUsers(usersResponse);
         })
     }, [])
 
@@ -75,7 +79,7 @@ export const Post = () => {
                     {post?.body}
                 </Typography>
             </Card>
-            <PostComments comments={comments} />
+            <PostComments comments={comments} users={users}/>
         </div>
     )
 }
