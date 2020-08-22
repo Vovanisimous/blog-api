@@ -2,12 +2,13 @@ import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {useParams} from "react-router";
 import {transport} from "../services/Transport";
-import {IUser} from "../entity/user";
+import {IToDo, IUser} from "../entity/user";
 import {Card, CardContent, CardHeader, Typography} from "@material-ui/core";
 import {IPost} from "../entity/posts";
 import {PostsTable} from "../components/PostsTable";
 import {IAlbum} from "../entity/album";
 import {AlbumsTable} from "../components/AlbumsTable";
+import {ToDosTable} from "../components/ToDosTable";
 
 const styles = makeStyles(() => ({
     card: {
@@ -46,6 +47,7 @@ export const Profile = () => {
     const [user, setUser] = useState<IUser>()
     const [posts, setPosts] = useState<IPost[]>()
     const [albums, setAlbums] = useState<IAlbum[]>()
+    const [toDos, setToDos] = useState<IToDo[]>()
 
     useEffect(() => {
         transport.get(`users/${userId}`).then((userResponse: any) => {
@@ -59,6 +61,9 @@ export const Profile = () => {
         });
         transport.get(`users/${userId}/albums`).then((albumsResponse: any) => {
             setAlbums(albumsResponse);
+        });
+        transport.get(`users/${userId}/todos`).then((toDosResponse: any) => {
+            setToDos(toDosResponse);
         })
     }, [user])
 
@@ -87,6 +92,7 @@ export const Profile = () => {
             </Card>
             <PostsTable posts={posts} />
             <AlbumsTable albums={albums} />
+            <ToDosTable toDos={toDos} />
         </div>
     )
 }
