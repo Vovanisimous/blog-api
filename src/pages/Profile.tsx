@@ -6,6 +6,8 @@ import {IUser} from "../entity/user";
 import {Card, CardContent, CardHeader, Typography} from "@material-ui/core";
 import {IPost} from "../entity/posts";
 import {PostsTable} from "../components/PostsTable";
+import {IAlbum} from "../entity/album";
+import {AlbumsTable} from "../components/AlbumsTable";
 
 const styles = makeStyles(() => ({
     card: {
@@ -43,6 +45,7 @@ export const Profile = () => {
     const { userId } = useParams();
     const [user, setUser] = useState<IUser>()
     const [posts, setPosts] = useState<IPost[]>()
+    const [albums, setAlbums] = useState<IAlbum[]>()
 
     useEffect(() => {
         transport.get(`users/${userId}`).then((userResponse: any) => {
@@ -53,6 +56,9 @@ export const Profile = () => {
     useEffect(() => {
         transport.get(`users/${userId}/posts`).then((postsResponse: any) => {
             setPosts(postsResponse);
+        });
+        transport.get(`users/${userId}/albums`).then((albumsResponse: any) => {
+            setAlbums(albumsResponse);
         })
     }, [user])
 
@@ -80,6 +86,7 @@ export const Profile = () => {
                 </CardContent>
             </Card>
             <PostsTable posts={posts} />
+            <AlbumsTable albums={albums} />
         </div>
     )
 }
