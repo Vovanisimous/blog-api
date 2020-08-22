@@ -4,6 +4,8 @@ import {useParams} from "react-router";
 import {transport} from "../services/Transport";
 import {IUser} from "../entity/user";
 import {Card, CardContent, CardHeader, Typography} from "@material-ui/core";
+import {IPost} from "../entity/posts";
+import {PostsTable} from "../components/PostsTable";
 
 const styles = makeStyles(() => ({
     card: {
@@ -40,12 +42,19 @@ export const Profile = () => {
     const classes = styles();
     const { userId } = useParams();
     const [user, setUser] = useState<IUser>()
+    const [posts, setPosts] = useState<IPost[]>()
 
     useEffect(() => {
         transport.get(`users/${userId}`).then((userResponse: any) => {
             setUser(userResponse);
         });
     }, []);
+
+    useEffect(() => {
+        transport.get(`users/${userId}/posts`).then((postsResponse: any) => {
+            setPosts(postsResponse);
+        })
+    }, [user])
 
     useEffect(() => {
 
@@ -70,6 +79,7 @@ export const Profile = () => {
                     <Typography className={classes.text}>Website: {user?.website}</Typography>
                 </CardContent>
             </Card>
+            <PostsTable posts={posts} />
         </div>
     )
 }
