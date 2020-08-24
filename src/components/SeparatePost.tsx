@@ -41,7 +41,7 @@ export const SeparatePost = (props: IProps) => {
 
     useEffect(() => {
         setUser(props.users[(userId - 1)]);
-    }, [])
+    }, [props.users])
 
     return (
         <Link to={`/posts/${post.id}`} className={classes.link}>
