@@ -45,6 +45,10 @@ export const Main = () => {
         transport.delete(`posts/${postId}`)
     }
 
+    const onEditPost = (postId: any) => {
+        history.push(`/editPost/${postId}`)
+    }
+
     return (
         <div className={classes.container}>
             <Button variant="contained" color="primary" onClick={onCreatePost}>
@@ -52,7 +56,7 @@ export const Main = () => {
             </Button>
             <div className={classes.posts}>
                 {posts.map((item) => (
-                    <SeparatePost post={item} key={item.id} users={users} onDeletePost={onDelePost}/>
+                    <SeparatePost post={item} key={item.id} users={users} onDeletePost={onDelePost} onEditPost={onEditPost}/>
                 ))}
             </div>
         </div>

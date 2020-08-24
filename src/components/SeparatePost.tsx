@@ -6,12 +6,15 @@ import { Link } from "react-router-dom";
 import {IUser} from "../entity/user";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 interface IProps {
     post: IPost;
     users: IUser[];
 
     onDeletePost(postId: any): void;
+
+    onEditPost(postId: any): void
 }
 
 const styles = makeStyles(() => ({
@@ -46,8 +49,12 @@ export const SeparatePost = (props: IProps) => {
         setUser(props.users[(userId - 1)]);
     }, [props.users])
 
-    const click = () => {
+    const del = () => {
         props.onDeletePost(post.id)
+    }
+
+    const edit = () => {
+        props.onEditPost(post.id)
     }
 
     return (
@@ -61,8 +68,11 @@ export const SeparatePost = (props: IProps) => {
                     <Typography className={classes.text}>{post.body}</Typography>
                 </CardContent>
                 </Link>
-                <IconButton aria-label="delete" onClick={click}>
+                <IconButton aria-label="delete" onClick={del}>
                     <DeleteIcon />
+                </IconButton>
+                <IconButton aria-label="delete" onClick={edit}>
+                    <EditIcon />
                 </IconButton>
             </Card>
     )
