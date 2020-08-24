@@ -20,8 +20,7 @@ const styles = makeStyles(() => ({
 
 export const PostComments = (props: IProps) => {
     const classes = styles();
-    const comments = props.comments;
-    const users = props.users;
+    const { users, comments } = props;
 
     return (
         <Card className={classes.card} variant={"outlined"}>

@@ -5,19 +5,11 @@ import {IPhoto} from "../entity/album";
 import {makeStyles} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import { Layout } from "../components/Layout";
 
 const styles = makeStyles(() => ({
     container: {
-        marginTop: "64px",
-        position: "relative",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        justifyItems: "center",
-        padding: 50,
-        paddingTop: "50px",
-        paddingBottom: "50px",
-        alignItems: "flex-start",
-        gridRowGap: 20,
+        gridTemplateColumns: "1fr 1fr 1fr 1fr"
     },
     photoContainer: {
         width: "50%",
@@ -37,13 +29,13 @@ export const Album = () => {
     }, [])
 
     return (
-        <div className={classes.container}>
+        <Layout className={classes.container}>
             {photos?.map((photo:IPhoto) => (
                 <Link to={`/albums/${photo.albumId}/${photo.id}`} key={photo.id} className={classes.photoContainer}>
                     <img src={photo.thumbnailUrl} />
                     <Typography>{photo.title}</Typography>
                 </Link>
             ))}
-        </div>
+        </Layout>
     )
 }

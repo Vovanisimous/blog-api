@@ -19,7 +19,7 @@ const styles = makeStyles(() => ({
 
 export const PostsTable = (props: IProps) => {
     const classes = styles();
-    const posts = props.posts;
+    const { posts = [] } = props;
 
     return (
         <TableContainer className={classes.tableContainer}>

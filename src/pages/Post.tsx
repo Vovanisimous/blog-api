@@ -7,20 +7,9 @@ import {IUser} from "../entity/user";
 import {Card, Typography} from "@material-ui/core";
 import {PostComments} from "../components/PostComments";
 import {Link} from "react-router-dom";
+import { Layout } from "../components/Layout";
 
 const styles = makeStyles(() => ({
-    container: {
-        marginTop: "64px",
-        position: "relative",
-        display: "grid",
-        gridTemplateColumns: "1fr",
-        justifyItems: "center",
-        padding: 50,
-        paddingTop: "50px",
-        paddingBottom: "50px",
-        alignItems: "flex-start",
-        gridRowGap: 20,
-    },
     card: {
         width: "100%",
         padding: 15,
@@ -63,7 +52,7 @@ export const Post = () => {
     }, [post])
 
     return (
-        <div className={classes.container}>
+        <Layout>
             <Link to={`/users/${user?.id}`} className={classes.link}>
                 <Card className={classes.card} variant={"outlined"}>
                     <Typography variant="h4" align={"center"}>
@@ -80,6 +69,6 @@ export const Post = () => {
                 </Typography>
             </Card>
             <PostComments comments={comments} users={users}/>
-        </div>
+        </Layout>
     )
 }

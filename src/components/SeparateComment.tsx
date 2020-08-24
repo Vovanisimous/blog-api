@@ -32,15 +32,12 @@ const styles = makeStyles(() => ({
 
 export const SeparateComment = (props: IProps) => {
     const classes = styles();
-    const comment = props.comment;
-    const users = props.users;
+    const { users, comment } = props;
     const [user, setUser] = useState()
 
     useEffect(() => {
          setUser(users?.filter((user) => user.email === comment?.email));
-    }, [])
-
-    useEffect(() => console.log(user), [user])
+    }, [users])
 
     return (
         <Link to={`/users/${user?.id}`}>

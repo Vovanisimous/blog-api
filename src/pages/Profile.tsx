@@ -9,6 +9,7 @@ import {PostsTable} from "../components/PostsTable";
 import {IAlbum} from "../entity/album";
 import {AlbumsTable} from "../components/AlbumsTable";
 import {ToDosTable} from "../components/ToDosTable";
+import { Layout } from "../components/Layout";
 
 const styles = makeStyles(() => ({
     card: {
@@ -26,19 +27,7 @@ const styles = makeStyles(() => ({
     },
     content: {
         overflow: "hidden",
-    },
-    container: {
-        marginTop: "64px",
-        position: "relative",
-        display: "grid",
-        gridTemplateColumns: "1fr",
-        justifyItems: "center",
-        padding: 50,
-        paddingTop: "50px",
-        paddingBottom: "50px",
-        alignItems: "flex-start",
-        gridRowGap: 20,
-    },
+    }
 }));
 
 export const Profile = () => {
@@ -72,7 +61,7 @@ export const Profile = () => {
     }, [user])
 
     return (
-        <div className={classes.container}>
+        <Layout>
             <Card className={classes.card} variant={"outlined"}>
                 <CardHeader
                     title={user?.username}
@@ -93,6 +82,6 @@ export const Profile = () => {
             <PostsTable posts={posts} />
             <AlbumsTable albums={albums} />
             <ToDosTable toDos={toDos} />
-        </div>
+        </Layout>
     )
 }

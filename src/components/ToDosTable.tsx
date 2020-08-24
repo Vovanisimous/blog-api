@@ -2,6 +2,7 @@ import React from "react";
 import {IToDo} from "../entity/user";
 import {makeStyles} from "@material-ui/core/styles";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@material-ui/core";
+import { CheckBoxOutlineBlankOutlined, CheckBoxOutlined } from "@material-ui/icons";
 
 interface IProps {
     toDos?: IToDo[];
@@ -18,7 +19,7 @@ const styles = makeStyles(() => ({
 
 export const ToDosTable = (props: IProps) => {
     const classes = styles();
-    const toDos = props.toDos;
+    const { toDos = [] } = props;
 
     return (
         <TableContainer className={classes.tableContainer}>
@@ -36,7 +37,7 @@ export const ToDosTable = (props: IProps) => {
                                 <Typography>{toDo.title}</Typography>
                             </TableCell>
                             <TableCell align="center">
-                                <Typography>{toDo.completed.toString()}</Typography>
+                                {toDo.completed === true ? <CheckBoxOutlined /> : <CheckBoxOutlineBlankOutlined />}
                             </TableCell>
                         </TableRow>
                     ))}

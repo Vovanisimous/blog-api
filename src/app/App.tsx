@@ -7,6 +7,7 @@ import {Post} from "../pages/Post";
 import {Profile} from "../pages/Profile";
 import {Album} from "../pages/Album";
 import {Photo} from "../pages/Photo";
+
 transport.init("https://jsonplaceholder.typicode.com");
 
  export const App = () => {
