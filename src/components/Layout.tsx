@@ -11,7 +11,7 @@ const styles = makeStyles(() => ({
         marginTop: "64px",
         position: "relative",
         display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr 1fr",
+        gridTemplateColumns: "1fr",
         justifyItems: "center",
         padding: 50,
         paddingTop: "50px",
