@@ -4,11 +4,14 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Card, CardContent, CardHeader, Typography} from "@material-ui/core";
 import { Link } from "react-router-dom";
 import {IUser} from "../entity/user";
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 interface IProps {
     post: IPost;
-
     users: IUser[];
+
+    onDeletePost(postId: any): void;
 }
 
 const styles = makeStyles(() => ({
@@ -43,9 +46,13 @@ export const SeparatePost = (props: IProps) => {
         setUser(props.users[(userId - 1)]);
     }, [props.users])
 
+    const click = () => {
+        props.onDeletePost(post.id)
+    }
+
     return (
-        <Link to={`/posts/${post.id}`} className={classes.link}>
             <Card className={classes.card} variant={"outlined"}>
+                <Link to={`/posts/${post.id}`} className={classes.link}>
                 <CardHeader
                     title={post.title}
                     subheader={user?.name}
@@ -53,7 +60,10 @@ export const SeparatePost = (props: IProps) => {
                 <CardContent className={classes.content}>
                     <Typography className={classes.text}>{post.body}</Typography>
                 </CardContent>
+                </Link>
+                <IconButton aria-label="delete" onClick={click}>
+                    <DeleteIcon />
+                </IconButton>
             </Card>
-        </Link>
     )
 }

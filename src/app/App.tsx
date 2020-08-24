@@ -7,8 +7,9 @@ import {Post} from "../pages/Post";
 import {Profile} from "../pages/Profile";
 import {Album} from "../pages/Album";
 import {Photo} from "../pages/Photo";
+import {CreatePost} from "../pages/CreatePost"
 
-transport.init("https://jsonplaceholder.typicode.com");
+transport.init("http://localhost:3001");
 
  export const App = () => {
 
@@ -21,6 +22,7 @@ transport.init("https://jsonplaceholder.typicode.com");
                 <Route exact path={"/users/:userId"} component={Profile} />
                 <Route exact path={"/albums/:albumId"} component={Album} />
                 <Route exact path={"/albums/:albumId/:photoId"} component={Photo} />
+                <Route exact path={"/createPost"} component={CreatePost} />
             </Switch>
         </div>
     )
