@@ -35,12 +35,8 @@ export const SeparateComment = (props: IProps) => {
     const { users, comment } = props;
     const [user, setUser] = useState()
 
-    useEffect(() => {
-         setUser(users?.filter((user) => user.email === comment?.email));
-    }, [users])
-
     return (
-        <Link to={`/users/${user?.id}`}>
+        <Link to={`/`}>
             <Card className={classes.card} variant={"outlined"}>
                 <CardHeader
                     title={comment?.name}

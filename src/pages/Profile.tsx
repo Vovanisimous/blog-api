@@ -10,6 +10,7 @@ import {IAlbum} from "../entity/album";
 import {AlbumsTable} from "../components/AlbumsTable";
 import {ToDosTable} from "../components/ToDosTable";
 import { Layout } from "../components/Layout";
+import {Map} from "../components/Map"
 
 const styles = makeStyles(() => ({
     card: {
@@ -79,6 +80,7 @@ export const Profile = () => {
                     <Typography className={classes.text}>Website: {user?.website}</Typography>
                 </CardContent>
             </Card>
+            <Map user={user} />
             <PostsTable posts={posts} />
             <AlbumsTable albums={albums} />
             <ToDosTable toDos={toDos} />
