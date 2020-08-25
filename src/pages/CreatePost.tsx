@@ -69,7 +69,7 @@ export const CreatePost = () => {
                 Upload
             </Button>
             {postSuccess && <Alert severity="success">Your post has been added!</Alert>}
-            {postError && <Alert severity="error">{postError}</Alert>}
+            {postError && <Alert severity="error">You have to write tittle and text!</Alert>}
         </Layout>
     );
 };

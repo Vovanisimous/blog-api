@@ -26,13 +26,13 @@ export const Main = () => {
     const history = useHistory();
 
     useEffect(() => {
-        transport.get("/posts").then((response: any) => {
+        transport.get<IPost[]>("/posts").then((response) => {
             setPosts(response);
         });
     }, []);
 
     useEffect(() => {
-        transport.get(`users`).then((usersResponse: any) => {
+        transport.get<IUser[]>(`users`).then((usersResponse) => {
             setUsers(usersResponse);
         });
     }, []);
@@ -41,7 +41,7 @@ export const Main = () => {
         history.push(`/createPost`);
     };
 
-    const onDeletePost = (postId: any) => {
+    const onDeletePost = (postId: string | number) => {
         transport
             .delete(`posts/${postId}`)
             .then(() => transport.get("/posts").then((response: any) => setPosts(response)));

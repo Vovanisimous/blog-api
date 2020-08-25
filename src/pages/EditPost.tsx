@@ -21,7 +21,7 @@ export const EditPost = () => {
     };
 
     useEffect(() => {
-        transport.get(`posts/${postId}`).then((postResponse: any) => {
+        transport.get<IPost>(`posts/${postId}`).then((postResponse) => {
             setPost(postResponse);
             setTitle(postResponse.title);
             setBody(postResponse.body)
@@ -76,8 +76,8 @@ export const EditPost = () => {
             <Button variant="contained" color="primary" fullWidth onClick={editPost}>
                 Edit
             </Button>
-            {postSuccess && <Alert severity="success">Your post has been eddited!</Alert>}
-            {postError && <Alert severity="error">{postError}</Alert>}
+            {postSuccess && <Alert severity="success">Your post has been edited!</Alert>}
+            {postError && <Alert severity="error">You have to write tittle and text!</Alert>}
         </Layout>
     );
 };
