@@ -12,9 +12,9 @@ interface IProps {
     post: IPost;
     users: IUser[];
 
-    onDeletePost(postId: string | number): void;
+    onDeletePost(postId?: string | number): void;
 
-    onEditPost(postId: string | number): void
+    onEditPost(postId?: string | number): void
 }
 
 const styles = makeStyles(() => ({

@@ -10,7 +10,7 @@ export const CreatePost = () => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [postSuccess, setPostSuccess] = useState(false);
-    const [postError, setPostError] = useState(false);
+    const [postError, setPostError] = useState<string | undefined>(undefined);
     const history = useHistory();
     const inputProps = {
         maxLength: 40,
@@ -36,7 +36,7 @@ export const CreatePost = () => {
                 setPostSuccess(true);
             });
         } else {
-            setPostError(true);
+            setPostError("You have to write tittle and text!");
         }
     };
 
@@ -69,7 +69,7 @@ export const CreatePost = () => {
                 Upload
             </Button>
             {postSuccess && <Alert severity="success">Your post has been added!</Alert>}
-            {postError && <Alert severity="error">You have to write tittle and text!</Alert>}
+            {postError && <Alert severity="error">{postError}</Alert>}
         </Layout>
     );
 };

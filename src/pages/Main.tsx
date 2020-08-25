@@ -44,7 +44,7 @@ export const Main = () => {
     const onDeletePost = (postId: string | number) => {
         transport
             .delete(`posts/${postId}`)
-            .then(() => transport.get("/posts").then((response: any) => setPosts(response)));
+            .then(() => transport.get<IPost[]>("/posts").then((response) => setPosts(response)));
     };
 
     const onEditPost = (postId: any) => {

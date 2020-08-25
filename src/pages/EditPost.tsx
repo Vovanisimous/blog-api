@@ -13,7 +13,7 @@ export const EditPost = () => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [postSuccess, setPostSuccess] = useState(false);
-    const [postError, setPostError] = useState(false);
+    const [postError, setPostError] = useState<string | undefined>(undefined);
     const {postId} = useParams();
     const history = useHistory();
     const inputProps = {
@@ -44,7 +44,7 @@ export const EditPost = () => {
                 setPostSuccess(true);
             });
         } else {
-            setPostError(true);
+            setPostError("You have to write tittle and text!");
         }
     };
 
@@ -77,7 +77,7 @@ export const EditPost = () => {
                 Edit
             </Button>
             {postSuccess && <Alert severity="success">Your post has been edited!</Alert>}
-            {postError && <Alert severity="error">You have to write tittle and text!</Alert>}
+            {postError && <Alert severity="error">{postError}</Alert>}
         </Layout>
     );
 };
