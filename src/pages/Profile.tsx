@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router";
-import { transport } from "../services/Transport";
-import { IToDo, IUser } from "../entity/user";
 import { Card, CardContent, CardHeader, Typography } from "@material-ui/core";
-import { IPost } from "../entity/posts";
 import { PostsTable } from "../components/PostsTable";
-import { IAlbum } from "../entity/album";
 import { AlbumsTable } from "../components/AlbumsTable";
 import { ToDosTable } from "../components/ToDosTable";
 import { Layout } from "../components/Layout";
+import { useUser } from "../hooks/useUser";
+import { useUsers } from "../hooks/useUsers";
 
 const styles = makeStyles(() => ({
     card: {
@@ -33,30 +31,14 @@ const styles = makeStyles(() => ({
 export const Profile = () => {
     const classes = styles();
     const { userId } = useParams();
-    const [user, setUser] = useState<IUser>();
-    const [posts, setPosts] = useState<IPost[]>();
-    const [albums, setAlbums] = useState<IAlbum[]>();
-    const [toDos, setToDos] = useState<IToDo[]>();
+    const {user} = useUser(userId);
+    const {userPosts, getUserPosts, userAlbums, getUserAlbums, userToDos, getUserToDos} = useUsers();
 
     useEffect(() => {
-        transport.get(`users/${userId}`).then((userResponse: any) => {
-            setUser(userResponse);
-        });
-    }, []);
-
-    useEffect(() => {
-        transport.get(`users/${userId}/posts`).then((postsResponse: any) => {
-            setPosts(postsResponse);
-        });
-        transport.get(`users/${userId}/albums`).then((albumsResponse: any) => {
-            setAlbums(albumsResponse);
-        });
-        transport.get(`users/${userId}/todos`).then((toDosResponse: any) => {
-            setToDos(toDosResponse);
-        });
+        getUserPosts(userId);
+        getUserAlbums(userId);
+        getUserToDos(userId)
     }, [user]);
-
-    useEffect(() => {}, [user]);
 
     return (
         <Layout>
@@ -75,9 +57,9 @@ export const Profile = () => {
                     <Typography className={classes.text}>Website: {user?.website}</Typography>
                 </CardContent>
             </Card>
-            <PostsTable posts={posts} />
-            <AlbumsTable albums={albums} />
-            <ToDosTable toDos={toDos} />
+            <PostsTable posts={userPosts} />
+            <AlbumsTable albums={userAlbums} />
+            <ToDosTable toDos={userToDos} />
         </Layout>
     );
 };

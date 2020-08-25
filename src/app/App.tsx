@@ -9,8 +9,9 @@ import {Album} from "../pages/Album";
 import {Photo} from "../pages/Photo";
 import {CreatePost} from "../pages/CreatePost"
 import {EditPost} from "../pages/EditPost"
+import { Create } from "../pages/Create";
 
-transport.init("http://localhost:3001");
+transport.init("http://localhost:3002");
 
  export const App = () => {
 
@@ -25,6 +26,7 @@ transport.init("http://localhost:3001");
                 <Route exact path={"/albums/:albumId/:photoId"} component={Photo} />
                 <Route exact path={"/createPost"} component={CreatePost} />
                 <Route exact path={"/editPost/:postId"} component={EditPost} />
+                <Route exact path={"/create"} component={Create} />
             </Switch>
         </div>
     )

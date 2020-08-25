@@ -6,6 +6,9 @@ import { SeparatePost } from "../components/SeparatePost";
 import { IUser } from "../entity/user";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import { usePost } from "../hooks/usePost";
+import { usePosts } from "../hooks/usePosts";
+import { useUsers } from "../hooks/useUsers";
 
 const styles = makeStyles(() => ({
     container: {
@@ -21,20 +24,16 @@ const styles = makeStyles(() => ({
 
 export const Main = () => {
     const classes = styles();
-    const [posts, setPosts] = useState<IPost[]>([]);
-    const [users, setUsers] = useState<IUser[]>([]);
     const history = useHistory();
+    const { posts, getPosts, deletePost } = usePosts();
+    const { users, getUsers } = useUsers();
 
     useEffect(() => {
-        transport.get<IPost[]>("/posts").then((response) => {
-            setPosts(response);
-        });
+        getPosts();
     }, []);
 
     useEffect(() => {
-        transport.get<IUser[]>(`users`).then((usersResponse) => {
-            setUsers(usersResponse);
-        });
+        getUsers();
     }, []);
 
     const onCreatePost = () => {
@@ -42,12 +41,10 @@ export const Main = () => {
     };
 
     const onDeletePost = (postId: string | number) => {
-        transport
-            .delete(`posts/${postId}`)
-            .then(() => transport.get<IPost[]>("/posts").then((response) => setPosts(response)));
+        deletePost(postId)
     };
 
-    const onEditPost = (postId: any) => {
+    const onEditPost = (postId: number | string) => {
         history.push(`/editPost/${postId}`);
     };
 

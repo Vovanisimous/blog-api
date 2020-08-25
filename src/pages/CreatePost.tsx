@@ -2,16 +2,15 @@ import React, { useContext, useState } from "react";
 import { Button, TextField, Typography } from "@material-ui/core";
 import { v4 } from "uuid";
 import { Alert } from "@material-ui/lab";
-import { useHistory } from "react-router-dom";
-import { transport } from "../services/Transport";
 import { Layout } from "../components/Layout";
+import { usePosts } from "../hooks/usePosts";
 
 export const CreatePost = () => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [postSuccess, setPostSuccess] = useState(false);
     const [postError, setPostError] = useState<string | undefined>(undefined);
-    const history = useHistory();
+    const curPosts  = usePosts()
     const inputProps = {
         maxLength: 40,
     };
@@ -30,7 +29,7 @@ export const CreatePost = () => {
             userId,
         };
         if (title.length > 0 && title.length > 0) {
-            transport.post(`/posts`, data).then(() => {
+            curPosts.createPost(data).then(() => {
                 setTitle("");
                 setBody("");
                 setPostSuccess(true);

@@ -6,6 +6,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import { Layout } from "../components/Layout";
+import { usePhotos } from "../hooks/usePhotos";
 
 const styles = makeStyles(() => ({
     container: {
@@ -20,12 +21,10 @@ const styles = makeStyles(() => ({
 export const Album = () => {
     const { albumId } = useParams();
     const classes = styles();
-    const [photos, setPhotos] = useState<IPhoto[]>();
+    const {photos, getPhotos} = usePhotos();
 
     useEffect(() => {
-        transport.get(`albums/${albumId}/photos`).then((photosResponse: any) => {
-            setPhotos(photosResponse);
-        })
+        getPhotos(albumId);
     }, [])
 
     return (
