@@ -3,7 +3,7 @@ import { Button, TextField, Typography } from "@material-ui/core";
 import { v4 } from "uuid";
 import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
-import {transport} from "../services/Transport";
+import { transport } from "../services/Transport";
 import { Layout } from "../components/Layout";
 
 export const CreatePost = () => {

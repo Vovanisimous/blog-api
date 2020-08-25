@@ -1,20 +1,20 @@
 import React, { useContext, useState, useEffect } from "react";
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 import { Button, TextField, Typography } from "@material-ui/core";
 import { v4 } from "uuid";
 import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
-import {transport} from "../services/Transport";
+import { transport } from "../services/Transport";
 import { Layout } from "../components/Layout";
-import {IPost} from "../entity/posts";
+import { IPost } from "../entity/posts";
 
 export const EditPost = () => {
-    const [post, setPost] = useState<IPost>()
+    const [post, setPost] = useState<IPost>();
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [postSuccess, setPostSuccess] = useState(false);
     const [postError, setPostError] = useState<string | undefined>(undefined);
-    const {postId} = useParams();
+    const { postId } = useParams();
     const history = useHistory();
     const inputProps = {
         maxLength: 40,
@@ -24,9 +24,9 @@ export const EditPost = () => {
         transport.get<IPost>(`posts/${postId}`).then((postResponse) => {
             setPost(postResponse);
             setTitle(postResponse.title);
-            setBody(postResponse.body)
-        })
-    }, [postId])
+            setBody(postResponse.body);
+        });
+    }, [postId]);
 
     function randomInt(min: number, max: number) {
         return min + Math.floor((max - min) * Math.random());
