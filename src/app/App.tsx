@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react"
+import React, { createContext, useEffect, useState } from "react"
 import {Header} from "../components/Header";
 import {transport} from "../services/Transport";
 import { Route, Switch} from "react-router";
@@ -18,14 +18,28 @@ transport.init("http://localhost:3002");
 
 export const AppContext = createContext<IAppContext>({
     auth: false,
+    setAuth(value: boolean) {
+        return;
+    },
+    setUser(value: IUser) {
+        return;
+    }
 })
 
  export const App = () => {
      const [auth, setAuth] = useState(false);
      const [user, setUser] = useState<IUser | undefined>(undefined);
 
+     useEffect(() => {
+         const localUser = localStorage.getItem("user");
+         if (localUser) {
+             setAuth(true);
+             setUser(JSON.parse(localUser));
+         }
+     }, [])
+
     return (
-        <AppContext.Provider value={{auth, user}}>
+        <AppContext.Provider value={{auth, user, setAuth, setUser}}>
             <Header />
             <Switch>
                 <Route exact path={"/"} component={Main} />
