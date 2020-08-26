@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { AppContext } from "../app/App";
+import { useAuth } from "../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -26,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
 export const Header = () => {
     const classes = useStyles();
     const context = useContext(AppContext);
+    const auth = useAuth();
 
     const onLogout = () => {
-        context.setAuth(false)
-        localStorage.removeItem("user")
+        auth.onLogout()
     }
 
     return (

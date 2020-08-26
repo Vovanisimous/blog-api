@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { transport } from "../services/Transport";
 import { AxiosError } from "axios";
 import { AppContext } from "../app/App";
+import { useAuth } from "../hooks/useAuth";
 
 const styles = makeStyles(() => ({
     container: {
@@ -42,13 +43,10 @@ export const Login = () => {
     const [error, setError] = useState<string | undefined>(undefined);
     const history = useHistory();
     const context = useContext(AppContext);
+    const auth = useAuth();
 
     const onLogin = () => {
-        transport
-            .post<any, {email: string, password: string}>("/login", {
-                email,
-                password,
-            })
+        auth.onLogin(email, password)
             .then((response) => {
                 setEmail("");
                 setPassword("");
