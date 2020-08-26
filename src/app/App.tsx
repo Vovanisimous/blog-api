@@ -10,6 +10,7 @@ import {Photo} from "../pages/Photo";
 import {CreatePost} from "../pages/CreatePost"
 import {EditPost} from "../pages/EditPost"
 import { Create } from "../pages/Create";
+import { Login } from "../pages/Login";
 
 transport.init("http://localhost:3002");
 
@@ -27,6 +28,7 @@ transport.init("http://localhost:3002");
                 <Route exact path={"/createPost"} component={CreatePost} />
                 <Route exact path={"/editPost/:postId"} component={EditPost} />
                 <Route exact path={"/create"} component={Create} />
+                <Route exact path={"/login"} component={Login} />
             </Switch>
         </div>
     )
