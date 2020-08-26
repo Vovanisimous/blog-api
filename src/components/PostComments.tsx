@@ -6,7 +6,7 @@ import {SeparateComment} from "./SeparateComment";
 import {IUser} from "../entity/user";
 
 interface IProps {
-    comments?: IComment[];
+    comments: IComment[];
     users?: IUser[];
 }
 
@@ -26,7 +26,7 @@ export const PostComments = (props: IProps) => {
         <Card className={classes.card} variant={"outlined"}>
             <Typography variant={"h4"}>Comments:</Typography>
             <div>
-                {comments?.map((item: IComment) => {
+                {comments.map((item: IComment) => {
                     return <SeparateComment key={item.id} comment={item} users={users}/>
                 })}
             </div>

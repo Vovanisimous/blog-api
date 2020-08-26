@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Button, TextField, Typography } from "@material-ui/core";
-import { v4 } from "uuid";
 import { Alert } from "@material-ui/lab";
 import { Layout } from "../components/Layout";
 import { usePosts } from "../hooks/usePosts";
@@ -21,9 +20,7 @@ export const CreatePost = () => {
 
     const createPost = () => {
         const userId = randomInt(1, 11);
-        const postId = v4();
         const data = {
-            id: postId,
             title,
             body,
             userId,

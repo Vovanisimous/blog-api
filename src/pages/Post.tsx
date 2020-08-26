@@ -32,15 +32,13 @@ export const Post = () => {
     const {users, getUsers} = useUsers();
     const {post} = usePost(postId);
     const {user} = useUser(post?.userId);
-    const {postComments, getPostComments} = useComments();
+    const {postComments} = useComments(postId);
 
     useEffect(() => {
         getUsers()
     }, [])
 
-    useEffect(() => {
-        getPostComments(postId);
-    }, [post])
+    useEffect(() => {console.log(postComments)}, [postComments])
 
     return (
         <Layout>

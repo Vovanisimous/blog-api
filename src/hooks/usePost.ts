@@ -15,7 +15,7 @@ export function usePost(postId?: string): {
 
     useEffect(() => {
         getPost();
-    }, []);
+    }, [postId]);
 
     return { post };
 }

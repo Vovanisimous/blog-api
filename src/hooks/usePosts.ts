@@ -9,7 +9,7 @@ interface IUsePosts {
 
     getPosts(): Promise<void>;
 
-    createPost(data: IPost): Promise<object>;
+    createPost(data: Omit<IPost, "id">): Promise<object>;
 
     editPost(postId: number | string, data: TEditPost): Promise<object>;
 

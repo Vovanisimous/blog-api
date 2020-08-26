@@ -15,7 +15,7 @@ export function useUser(userId: number | undefined): {
 
     useEffect(() =>{
         getUser()
-    })
+    }, [userId])
 
     return {user}
 }

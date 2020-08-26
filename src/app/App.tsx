@@ -18,29 +18,6 @@ transport.init("http://localhost:3002");
 
 export const AppContext = createContext<IAppContext>({
     auth: false,
-    user: {
-        id: "",
-        name: "",
-        username: "",
-        email: "",
-        address: {
-            street: "",
-            suite: "",
-            city: "",
-            zipcode: "",
-            geo: {
-                lat: "",
-                lng: ""
-            }
-        },
-        phone: "",
-        website: "",
-        company: {
-            name: "",
-            catchPhrase: "",
-            bs: ""
-        }
-    }
 })
 
  export const App = () => {
