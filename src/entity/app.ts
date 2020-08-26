@@ -6,5 +6,5 @@ export interface IAppContext {
 
     setAuth(value: boolean): void;
 
-    setUser(value: IUser): void;
+    setUser(value: IUser | undefined): void;
 }
