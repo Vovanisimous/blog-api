@@ -1,4 +1,4 @@
-import React from "react"
+import React, { createContext, useState } from "react"
 import {Header} from "../components/Header";
 import {transport} from "../services/Transport";
 import { Route, Switch} from "react-router";
@@ -11,13 +11,44 @@ import {CreatePost} from "../pages/CreatePost"
 import {EditPost} from "../pages/EditPost"
 import { Create } from "../pages/Create";
 import { Login } from "../pages/Login";
+import { IAppContext } from "../entity/app";
+import { IUser } from "../entity/user";
 
 transport.init("http://localhost:3002");
 
+export const AppContext = createContext<IAppContext>({
+    auth: false,
+    user: {
+        id: "",
+        name: "",
+        username: "",
+        email: "",
+        address: {
+            street: "",
+            suite: "",
+            city: "",
+            zipcode: "",
+            geo: {
+                lat: "",
+                lng: ""
+            }
+        },
+        phone: "",
+        website: "",
+        company: {
+            name: "",
+            catchPhrase: "",
+            bs: ""
+        }
+    }
+})
+
  export const App = () => {
+     const [auth, setAuth] = useState(false);
+     const [user, setUser] = useState<IUser | undefined>(undefined);
 
     return (
-        <div>
+        <AppContext.Provider value={{auth, user}}>
             <Header />
             <Switch>
                 <Route exact path={"/"} component={Main} />
@@ -30,6 +61,6 @@ transport.init("http://localhost:3002");
                 <Route exact path={"/create"} component={Create} />
                 <Route exact path={"/login"} component={Login} />
             </Switch>
-        </div>
+        </AppContext.Provider>
     )
 }
