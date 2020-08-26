@@ -1,17 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {IPhoto} from "../entity/album";
-import {transport} from "../services/Transport";
+import React, {useEffect} from "react";
 import {useParams} from "react-router";
 import { Layout } from "../components/Layout";
+import { usePhotos } from "../hooks/usePhotos";
 
 export const Photo = () => {
     const { photoId } = useParams();
-    const [photo, setPhoto] = useState<IPhoto>()
+    const {photo, getPhoto} = usePhotos();
 
     useEffect(() => {
-        transport.get(`photos/${photoId}`).then((photoResponse: any) => {
-            setPhoto(photoResponse);
-        });
+        getPhoto(photoId);
     }, [])
 
     return (

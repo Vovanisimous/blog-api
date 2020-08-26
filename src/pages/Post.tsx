@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {useParams} from "react-router";
-import {transport} from "../services/Transport";
-import {IComment, IPost} from "../entity/posts";
-import {IUser} from "../entity/user";
 import {Card, Typography} from "@material-ui/core";
 import {PostComments} from "../components/PostComments";
 import {Link} from "react-router-dom";
 import { Layout } from "../components/Layout";
+import { usePost } from "../hooks/usePost";
+import { useUsers } from "../hooks/useUsers";
+import { useUser } from "../hooks/useUser";
+import { useComments } from "../hooks/useComments";
 
 const styles = makeStyles(() => ({
     card: {
@@ -28,28 +29,14 @@ const styles = makeStyles(() => ({
 export const Post = () => {
     const classes = styles();
     const { postId } = useParams();
-    const [post, setPost] = useState<IPost>();
-    const [user, setUser] = useState<IUser>();
-    const [users, setUsers] = useState<IUser[]>();
-    const [comments, setComments] = useState<IComment[]>()
+    const {users, getUsers} = useUsers();
+    const {post} = usePost(postId);
+    const {user} = useUser(post?.userId);
+    const {postComments} = useComments(postId);
 
     useEffect(() => {
-        transport.get(`posts/${postId}`).then((postResponse: any) => {
-            setPost(postResponse);
-        });
-        transport.get(`users`).then((usersResponse: any) => {
-            setUsers(usersResponse);
-        })
+        getUsers()
     }, [])
-
-    useEffect(() => {
-        transport.get(`users/${post?.userId}`).then((userResponse: any) => {
-            setUser(userResponse);
-        });
-        transport.get(`posts/${post?.id}/comments`).then((commentsResponse: any) => {
-            setComments(commentsResponse);
-        });
-    }, [post])
 
     return (
         <Layout>
@@ -68,7 +55,7 @@ export const Post = () => {
                     {post?.body}
                 </Typography>
             </Card>
-            <PostComments comments={comments} users={users}/>
+            <PostComments comments={postComments} users={users}/>
         </Layout>
     )
 }

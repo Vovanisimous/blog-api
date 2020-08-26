@@ -1,4 +1,4 @@
-import React from "react"
+import React, { createContext, useState } from "react"
 import {Header} from "../components/Header";
 import {transport} from "../services/Transport";
 import { Route, Switch} from "react-router";
@@ -9,13 +9,23 @@ import {Album} from "../pages/Album";
 import {Photo} from "../pages/Photo";
 import {CreatePost} from "../pages/CreatePost"
 import {EditPost} from "../pages/EditPost"
+import { Create } from "../pages/Create";
+import { Login } from "../pages/Login";
+import { IAppContext } from "../entity/app";
+import { IUser } from "../entity/user";
 
-transport.init("http://localhost:3001");
+transport.init("http://localhost:3002");
+
+export const AppContext = createContext<IAppContext>({
+    auth: false,
+})
 
  export const App = () => {
+     const [auth, setAuth] = useState(false);
+     const [user, setUser] = useState<IUser | undefined>(undefined);
 
     return (
-        <div>
+        <AppContext.Provider value={{auth, user}}>
             <Header />
             <Switch>
                 <Route exact path={"/"} component={Main} />
@@ -25,7 +35,9 @@ transport.init("http://localhost:3001");
                 <Route exact path={"/albums/:albumId/:photoId"} component={Photo} />
                 <Route exact path={"/createPost"} component={CreatePost} />
                 <Route exact path={"/editPost/:postId"} component={EditPost} />
+                <Route exact path={"/create"} component={Create} />
+                <Route exact path={"/login"} component={Login} />
             </Switch>
-        </div>
+        </AppContext.Provider>
     )
 }

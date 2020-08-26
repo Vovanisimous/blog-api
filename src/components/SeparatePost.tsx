@@ -37,6 +37,13 @@ const styles = makeStyles(() => ({
     content: {
         overflow: "hidden",
     },
+    buttons: {
+        display: "flex",
+    },
+    button: {
+        alignItems: "flex-start",
+        marginRight: 10,
+    },
 }));
 
 export const SeparatePost = (props: IProps) => {
@@ -69,12 +76,14 @@ export const SeparatePost = (props: IProps) => {
                     <Typography className={classes.text}>{post.body}</Typography>
                 </CardContent>
             </Link>
-            <IconButton aria-label="delete" onClick={del}>
-                <DeleteIcon />
-            </IconButton>
-            <IconButton aria-label="delete" onClick={edit}>
-                <EditIcon />
-            </IconButton>
+            <div className={classes.buttons}>
+                <IconButton aria-label="delete" onClick={del} className={classes.button}>
+                    <DeleteIcon />
+                </IconButton>
+                <IconButton aria-label="delete" onClick={edit} className={classes.button}>
+                    <EditIcon />
+                </IconButton>
+            </div>
         </Card>
     );
 };

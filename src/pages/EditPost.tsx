@@ -1,50 +1,37 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
 import { Button, TextField, Typography } from "@material-ui/core";
-import { v4 } from "uuid";
 import { Alert } from "@material-ui/lab";
-import { useHistory } from "react-router-dom";
-import { transport } from "../services/Transport";
 import { Layout } from "../components/Layout";
-import { IPost } from "../entity/posts";
+import { usePosts } from "../hooks/usePosts";
+import { usePost } from "../hooks/usePost";
 
 export const EditPost = () => {
-    const [post, setPost] = useState<IPost>();
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
+    const [title, setTitle] = useState<string | undefined>(usePost().post?.title);
+    const [body, setBody] = useState<string | undefined>(usePost().post?.body);
     const [postSuccess, setPostSuccess] = useState(false);
     const [postError, setPostError] = useState<string | undefined>(undefined);
     const { postId } = useParams();
-    const history = useHistory();
+    const posts = usePosts();
     const inputProps = {
         maxLength: 40,
     };
 
-    useEffect(() => {
-        transport.get<IPost>(`posts/${postId}`).then((postResponse) => {
-            setPost(postResponse);
-            setTitle(postResponse.title);
-            setBody(postResponse.body);
-        });
-    }, [postId]);
-
-    function randomInt(min: number, max: number) {
-        return min + Math.floor((max - min) * Math.random());
-    }
-
     const editPost = () => {
-        const data = {
-            title,
-            body,
-        };
-        if (title.length > 0 && title.length > 0) {
-            transport.put(`/posts/${postId}`, data).then(() => {
-                setTitle("");
-                setBody("");
-                setPostSuccess(true);
-            });
-        } else {
-            setPostError("You have to write tittle and text!");
+        if (title && body) {
+            const data = {
+                title,
+                body,
+            };
+            if (title.length > 0 && body.length > 0) {
+                posts.editPost(`/posts/${postId}`, data).then(() => {
+                    setTitle("");
+                    setBody("");
+                    setPostSuccess(true);
+                });
+            } else {
+                setPostError("You have to write tittle and text!");
+            }
         }
     };
 
