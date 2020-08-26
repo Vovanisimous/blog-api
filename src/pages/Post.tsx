@@ -38,8 +38,6 @@ export const Post = () => {
         getUsers()
     }, [])
 
-    useEffect(() => {console.log(postComments)}, [postComments])
-
     return (
         <Layout>
             <Link to={`/users/${user?.id}`} className={classes.link}>
