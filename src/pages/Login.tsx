@@ -4,6 +4,8 @@ import { useHistory } from "react-router";
 import { Button, Card, TextField, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { transport } from "../services/Transport";
+import { AxiosError } from "axios";
 
 const styles = makeStyles(() => ({
     container: {
@@ -40,7 +42,21 @@ export const Login = () => {
     const history = useHistory();
 
     const onLogin = () => {
-
+        transport
+            .post("/login", {
+                email,
+                password,
+            })
+            .then(() => {
+                setEmail("");
+                setPassword("");
+            })
+            .catch((e: AxiosError) => {
+                const resp = e.response;
+                if (resp) {
+                    setError(resp.data.message);
+                }
+            });
     };
 
     return (

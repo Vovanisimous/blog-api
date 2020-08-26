@@ -58,6 +58,7 @@ export const Create = () => {
                     setEmail("");
                     setName("");
                     setPassword("");
+                    setRepeatPassword("")
                     setUsername("");
                     setSuccess(true);
                 });
@@ -67,19 +68,7 @@ export const Create = () => {
         }
     };
 
-    // const login = () => {
-    //     transport.post("/login", {
-    //         email, password
-    //     }).then(() => {
-    //         setEmail("")
-    //         setPassword("")
-    //     }).catch((e: AxiosError) => {
-    //         const resp = e.response;
-    //         if (resp) {
-    //             setError(resp.data.message)
-    //         }
-    //     })
-    // }
+
 
     return (
         <div className={classes.container}>
