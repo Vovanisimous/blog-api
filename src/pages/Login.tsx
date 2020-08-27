@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { Button, Card, TextField, Typography } from "@material-ui/core";
@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { transport } from "../services/Transport";
 import { AxiosError } from "axios";
+import { AppContext } from "../app/App";
+import { useAuth } from "../hooks/useAuth";
 
 const styles = makeStyles(() => ({
     container: {
@@ -40,16 +42,17 @@ export const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | undefined>(undefined);
     const history = useHistory();
+    const context = useContext(AppContext);
+    const auth = useAuth();
 
     const onLogin = () => {
-        transport
-            .post("/login", {
-                email,
-                password,
-            })
-            .then(() => {
+        auth.onLogin(email, password)
+            .then((response) => {
                 setEmail("");
                 setPassword("");
+                context.setAuth(true);
+                context.setUser(response.data.user);
+                localStorage.setItem("user", JSON.stringify(response.data.user));
             })
             .catch((e: AxiosError) => {
                 const resp = e.response;
