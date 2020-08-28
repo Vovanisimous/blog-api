@@ -14,7 +14,7 @@ import { Login } from "../pages/Login";
 import { IAppContext } from "../entity/app";
 import { IUser } from "../entity/user";
 
-transport.init("http://localhost:3002");
+transport.init("http://15.188.194.95:1111");
 
 export const AppContext = createContext<IAppContext>({
     auth: false,
